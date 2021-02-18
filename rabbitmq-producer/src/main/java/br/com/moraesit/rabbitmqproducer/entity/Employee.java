@@ -1,10 +1,15 @@
 package br.com.moraesit.rabbitmqproducer.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.time.LocalDate;
 
 public class Employee {
+    @JsonProperty("employee_id")
     private String employeeId;
     private String name;
+    @JsonProperty("birth_date")
     private LocalDate birthDate;
 
     public Employee() {
