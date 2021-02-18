@@ -1,8 +1,8 @@
-package br.com.moraesit.rabbitmqproducer.entity;
+package br.com.moraesit.rabbitmqconsumer.entity;
 
-import br.com.moraesit.rabbitmqproducer.json.CustomLocalDateSerializer;
+import br.com.moraesit.rabbitmqconsumer.json.CustomLocalDateDeserializer;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ public class Employee {
     private String employeeId;
     private String name;
     @JsonProperty("birth_date")
-    @JsonSerialize(using = CustomLocalDateSerializer.class)
+    @JsonDeserialize(using = CustomLocalDateDeserializer.class)
     private LocalDate birthDate;
 
     public Employee() {
@@ -46,5 +46,14 @@ public class Employee {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId='" + employeeId + '\'' +
+                ", name='" + name + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }
