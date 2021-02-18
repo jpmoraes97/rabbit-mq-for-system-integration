@@ -6,7 +6,9 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
-//@Service
+import java.util.concurrent.ThreadLocalRandom;
+
+@Service
 public class FixedRateConsumer {
 
     private final RabbitTemplate rabbitTemplate;
@@ -16,9 +18,14 @@ public class FixedRateConsumer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RabbitListener(queues = "course.fixedrate")
+    @RabbitListener(queues = "course.fixedrate", concurrency = "3")
     public void listen(String message) {
-        System.err.println("Consuming: " + message);
-        log.info("Consuming {}", message);
+        log.info("Consuming {} on Thread {}", message, Thread.currentThread().getName());
+
+        try {
+            Thread.sleep(ThreadLocalRandom.current().nextLong(2000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
