@@ -8,13 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class MarketingConsumer {
 
     private ObjectMapper objectMapper = new ObjectMapper();
     private Logger log = LoggerFactory.getLogger(MarketingConsumer.class);
 
-    @RabbitListener(queues = "q.hr.marketing")
+    //@RabbitListener(queues = "q.hr.marketing")
     public void consumeEmployee(String message) {
         Employee employee = null;
         try {

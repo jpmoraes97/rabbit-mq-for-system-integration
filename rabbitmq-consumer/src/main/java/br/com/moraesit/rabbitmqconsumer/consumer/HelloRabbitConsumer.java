@@ -13,7 +13,7 @@ public class HelloRabbitConsumer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RabbitListener(queues = "course.hello")
+    //@RabbitListener(queues = "course.hello")
     public void listen(String message) {
         System.err.println("Consuming: " + message);
     }
