@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-@Service
+//@Service
 public class FixedRateConsumer {
 
     private final RabbitTemplate rabbitTemplate;
@@ -18,7 +18,7 @@ public class FixedRateConsumer {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    @RabbitListener(queues = "course.fixedrate", concurrency = "3")
+    //@RabbitListener(queues = "course.fixedrate", concurrency = "3")
     public void listen(String message) {
         log.info("Consuming {} on Thread {}", message, Thread.currentThread().getName());
 

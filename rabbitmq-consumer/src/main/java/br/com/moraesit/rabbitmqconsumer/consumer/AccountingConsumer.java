@@ -8,20 +8,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
-//@Service
-public class EmployeeJsonConsumer {
+@Service
+public class AccountingConsumer {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    private Logger log = LoggerFactory.getLogger(EmployeeJsonConsumer.class);
+    private Logger log = LoggerFactory.getLogger(AccountingConsumer.class);
 
-    //@RabbitListener(queues = "course.employee")
+    @RabbitListener(queues = "q.hr.accounting")
     public void consumeEmployee(String message) {
+        Employee employee = null;
         try {
-            var employee = objectMapper.readValue(message, Employee.class);
-            log.info("Employee is {}", employee);
+            employee = objectMapper.readValue(message, Employee.class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        log.info("On account, employee is {}", employee);
     }
 
 }
