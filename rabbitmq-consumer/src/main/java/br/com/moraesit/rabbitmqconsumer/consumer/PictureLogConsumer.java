@@ -9,14 +9,14 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
 //@Service
-public class PictureImageConsumer {
+public class PictureLogConsumer {
 
     private ObjectMapper objectMapper = new ObjectMapper();
-    private static final Logger log = LoggerFactory.getLogger(PictureImageConsumer.class);
+    private static final Logger log = LoggerFactory.getLogger(PictureLogConsumer.class);
 
-    @RabbitListener(queues = "q.picture.image")
+    @RabbitListener(queues = "q.picture.log")
     public void listen(String message) throws JsonProcessingException {
         var p = objectMapper.readValue(message, Picture.class);
-        log.info("On image: {}", p.toString());
+        log.info("On log: {}", p.toString());
     }
 }
