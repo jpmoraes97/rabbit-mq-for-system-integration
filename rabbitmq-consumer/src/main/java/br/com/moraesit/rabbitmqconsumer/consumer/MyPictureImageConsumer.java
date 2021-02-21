@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class MyPictureImageConsumer {
         var p = objectMapper.readValue(message, Picture.class);
 
         if (p.getSize() > 9000)
-            throw new IllegalArgumentException("Picture size too large: " + p);
+            throw new AmqpRejectAndDontRequeueException("Picture size too large: " + p);
 
         log.info("On image: {}", p.toString());
     }
