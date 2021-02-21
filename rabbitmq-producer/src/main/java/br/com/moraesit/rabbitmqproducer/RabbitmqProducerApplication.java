@@ -24,13 +24,15 @@ public class RabbitmqProducerApplication implements CommandLineRunner {
 	private final HumanResourceProducer humanResourceProducer;
 	private final PictureProducer pictureProducer;
 	private final PictureProducerTwo pictureProducerTwo;
+	private final MyPictureProducer myPictureProducer;
 
-	public RabbitmqProducerApplication(FixedRateProducer fixedRateProducer, EmployeeJsonProducer employeeJsonProducer, HumanResourceProducer humanResourceProducer, PictureProducer pictureProducer, PictureProducerTwo pictureProducerTwo) {
+	public RabbitmqProducerApplication(FixedRateProducer fixedRateProducer, EmployeeJsonProducer employeeJsonProducer, HumanResourceProducer humanResourceProducer, PictureProducer pictureProducer, PictureProducerTwo pictureProducerTwo, MyPictureProducer myPictureProducer) {
 		this.fixedRateProducer = fixedRateProducer;
 		this.employeeJsonProducer = employeeJsonProducer;
 		this.humanResourceProducer = humanResourceProducer;
 		this.pictureProducer = pictureProducer;
 		this.pictureProducerTwo = pictureProducerTwo;
+		this.myPictureProducer = myPictureProducer;
 	}
 
 	private final List<String> SOURCES = List.of("mobile", "web");
@@ -61,11 +63,12 @@ public class RabbitmqProducerApplication implements CommandLineRunner {
 
 			var picture = new Picture();
 			picture.setName("Picture " + x);
-			picture.setSize(ThreadLocalRandom.current().nextLong(1, 10001));
+			picture.setSize(ThreadLocalRandom.current().nextLong(9001, 10001));
 			picture.setSource(SOURCES.get(x % SOURCES.size()));
 			picture.setType(TYPES.get(x % TYPES.size()));
-			pictureProducerTwo.sendMessage(picture);
+//			pictureProducerTwo.sendMessage(picture);
 
+			myPictureProducer.sendMessage(picture);
 
 		}
 	}
