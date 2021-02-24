@@ -1,4 +1,4 @@
-spring:
+  spring:
   rabbitmq:
     host: localhost
     port: 5672
